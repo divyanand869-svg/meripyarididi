@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-deepest: #0b0f19;
+  --bg-base: #101826;
+  --bg-panel: #111827;
+  --gold: #d4af37;
+  --gold-light: #e6d5a8;
+  --gold-deep: #c8a95e;
+  --ink-line: rgba(212, 175, 55, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  background: var(--bg-deepest);
+}
+
+body {
+  background: var(--bg-deepest);
+  color: #e5e7eb;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
+/* ---------- Custom cursor ---------- */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.9), 0 0 18px rgba(212, 175, 55, 0.4);
+  will-change: transform;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease, opacity 0.35s ease;
+  will-change: transform;
+}
+
+.cursor-ring.hovering {
+  width: 64px;
+  height: 64px;
+  border-color: rgba(230, 213, 168, 0.85);
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.25);
+}
+
+.cursor-ripple {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  animation: rippleExpand 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes rippleExpand {
+  0% {
+    width: 8px;
+    height: 8px;
+    opacity: 0.9;
+  }
+  100% {
+    width: 90px;
+    height: 90px;
+    opacity: 0;
+  }
+}
+
+.cursor-particle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.55);
+  pointer-events: none;
+  z-index: 9996;
+  transform: translate(-50%, -50%);
+  animation: particleFade 0.9s ease-out forwards;
+}
+
+@keyframes particleFade {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+}
+
+/* ---------- Typography helpers ---------- */
+.heading-display {
+  font-family: var(--font-cormorant), serif;
+  letter-spacing: 0.01em;
+}
+
+.heading-sub {
+  font-family: var(--font-playfair), serif;
+}
+
+.eyebrow {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.8;
+}
+
+.italic-line {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+/* ---------- Gold divider ---------- */
+.gold-rule {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.5),
+    transparent
+  );
+}
+
+/* ---------- Particle field (ambient) ---------- */
+.particle-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.35);
+  filter: blur(0.5px);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deepest);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.35);
+  border-radius: 3px;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Focus visibility ---------- */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* ---------- Section spacing rhythm ---------- */
+.section-shell {
+  position: relative;
+  width: 100%;
+  padding: clamp(5rem, 12vw, 10rem) 0;
+}
+
+.container-shell {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+}
