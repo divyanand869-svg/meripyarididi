@@ -106,7 +106,7 @@ export function loadTexture(url: string): Promise<THREE.Texture> {
   if (_cache.has(url)) return Promise.resolve(_cache.get(url)!);
   if (_pending.has(url)) return _pending.get(url)!;
 
-  const { textureSizeCap } = resolvePerformanceConfig();
+  const textureSizeCap = 2048;
 
   const promise = new Promise<THREE.Texture>((resolve, reject) => {
     const img = new Image();
